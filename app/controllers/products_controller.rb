@@ -10,7 +10,16 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.create product_params
-    redirect_to products_path, notice:"El producto fue creado de forma exitosa :D"
+
+    if @product.persisted?
+      redirect_to products_path, notice:"El producto fue creado de forma exitosa :D"
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def show
+    @product = Product.find params[:id]
   end
 
   private
