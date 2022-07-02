@@ -4,6 +4,10 @@ Rails.application.routes.draw do
 
   get 'products/:id', to: 'products#show', as: :product
 
+  get 'products/:id/edit', to: 'products#edit', as: :edit_product
+  patch 'products/:id', to: 'products#update'
+
+
   post 'products', to: 'products#create'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
