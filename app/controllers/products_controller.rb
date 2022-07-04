@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :edit, :update]
+  before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   def index
     @products = Product.where(visible:true).order('id DESC')
@@ -36,10 +36,16 @@ class ProductsController < ApplicationController
     end
   end
 
+  def destroy
+    @product.destroy
+    redirect_to products_path, status: :see_other, notice: "El producto se elimino de forma exitosa"
+  end
+
   private
 
   def set_product
-    @product = Product.find params[:id]
+    # @product = Product.find params[:id] Busqueda por ID
+    @product = Product.friendly.find params[:id]
   end
 
   def product_params
