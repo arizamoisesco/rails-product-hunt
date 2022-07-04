@@ -21,6 +21,8 @@ class Product < ApplicationRecord
     validates :description, presence: {message: 'La descripción es requerida'}
 
     validates :name, length: {maximum:200, minimum: 2}
+
+    has_one_attached :image, :dependent => :destroy
     #uniqueness
     # length
     #format

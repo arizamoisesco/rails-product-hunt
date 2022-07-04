@@ -5,7 +5,9 @@
             Desarrollo de Software
                 <%#= product.category_default %>
             </span>
-           
+            <%if product.image.present? %>
+                <%= image_tag product.image, class:"w-full h-full object-cover rounded-lg"%>
+            <% end %>
         </div>
         <span class="inline-block mb-4 text-xs text-gray-500"><%= date_format product.created_at %></span>
         <h2 class="mb-4 text-2xl font-semibold font-heading"><%= product.name %></h2>

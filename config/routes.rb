@@ -10,7 +10,9 @@ Rails.application.routes.draw do
 
   #post 'products', to: 'products#create'
 
-  resources :products
+  resources :products do
+    get 'search', on: :collection #products/search  -> products#search
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

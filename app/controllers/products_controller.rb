@@ -2,7 +2,8 @@ class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   def index
-    @products = Product.where(visible:true).order('id DESC')
+    current_page = params[:page] ||= 1 
+    @products = Product.where(visible:true).order('id DESC').paginate(page: current_page, per_page: 5)
   end
 
   def new
@@ -41,6 +42,11 @@ class ProductsController < ApplicationController
     redirect_to products_path, status: :see_other, notice: "El producto se elimino de forma exitosa"
   end
 
+  def search
+    @q = params[:q]
+    @products = Product.where("name LIKE ?", "%#{@q}%").where(visible:true)
+  end
+
   private
 
   def set_product
@@ -49,6 +55,6 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:name, :description, :visible)
+    params.require(:product).permit(:name, :description, :visible, :image)
   end
 end
